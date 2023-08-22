@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import styles from 'components/Phonebook/ContatForm/ContactForm.module.css';
+import styles from 'components/ContatForm/ContactForm.module.css';
 
 const ContactForm = ({ handleSubmit }) => {
   const [name, setName] = useState("");
