@@ -1,7 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateFilter } from './redux/phonebookSlice';
 
-const Filter = ({ filter, handleChangeFilter }) => {
+const Filter = () => {
+  const filter = useSelector(state => state.phonebook.filter);
+  const dispatch = useDispatch();
+
+  const handleChangeFilter = event => {
+    dispatch(updateFilter(event.target.value));
+  };
+
   return (
     <input
       type="text"
@@ -11,10 +19,5 @@ const Filter = ({ filter, handleChangeFilter }) => {
     />
   );
 };
-Filter.propTypes = {
-  filter: PropTypes.string.isRequired,
-  handleChangeFilter: PropTypes.func.isRequired,
-};
-
 
 export default Filter;

@@ -1,27 +1,30 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'components/redux/phonebookSlice';
+import styles from './ContactForm.module.css';
 import PropTypes from "prop-types";
-import styles from 'components/ContatForm/ContactForm.module.css';
+const ContactForm = () => {
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-const ContactForm = ({ handleSubmit }) => {
-  const [name, setName] = useState("");
-  const [number, setNumber] = useState("");
-
-  const handleChange = (event) => {
+  const handleChange = event => {
     const { name, value } = event.target;
-    if (name === "name") {
+    if (name === 'name') {
       setName(value);
-    } else if (name === "number") {
+    } else if (name === 'number') {
       setNumber(value);
     }
   };
 
-  const onSubmit = (event) => {
+  const onSubmit = event => {
     event.preventDefault();
     const newContact = { id: Date.now().toString(), name, number };
-    handleSubmit(newContact);
-    setName("");
-    setNumber("");
+    dispatch(addContact(newContact));
+    setName('');
+    setNumber('');
   };
+
 
   return (
     <form className={styles.formContainer} onSubmit={onSubmit}>

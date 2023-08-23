@@ -1,44 +1,35 @@
-import React, { useState, useEffect } from "react";
-import ContactForm from "./Phonebook/ContatForm/Contactform";
-import ContactList from "./Contactlist";
-import Filter from "./Filter";
-import PropTypes from "prop-types";
+
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addContact, deleteContact, updateFilter } from './redux/phonebookSlice';
+import ContactForm from './ContatForm/Contactform';
+import ContactList from './Contactlist';
+import Filter from './Filter';
 
 const Phonebook = () => {
-  const [contacts, setContacts] = useState(() => {
-    const storedContacts = localStorage.getItem("contacts");
-    return storedContacts ? JSON.parse(storedContacts) : [];
-  });
-  const [filter, setFilter] = useState("");
+  const contacts = useSelector(state => state.contacts);
+  const filter = useSelector(state => state.phonebook.filter);
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-  }, [contacts]);
-
-  const handleChangeFilter = (event) => {
-    setFilter(event.target.value);
-  };
-
-  const handleSubmit = (newContact) => {
-    const contactExists = contacts?.some(
-      (contact) => contact.name.toLowerCase() === newContact.name.toLowerCase()
-    );
+  const handleSubmit = newContact => {
+    const contactExists = contacts.some(contact => contact.name.toLowerCase() === newContact.name.toLowerCase());
 
     if (contactExists) {
       alert(`${newContact.name} is already in contacts`);
       return;
     }
 
-    setContacts((prevContacts) => [...prevContacts, newContact]);
+    dispatch(addContact(newContact));
   };
 
-  const handleDelete = (id) => {
-    setContacts((prevContacts) => prevContacts.filter((contact) => contact.id !== id));
+  const handleChangeFilter = event => {
+    dispatch(updateFilter(event.target.value));
   };
 
-  const filteredContacts = contacts?.filter((contact) =>
-    contact.name.toLowerCase().includes(filter.toLowerCase())
-  );
+  const handleDelete = id => {
+    dispatch(deleteContact(id));
+  };
+
 
   return (
     <div>
@@ -46,22 +37,9 @@ const Phonebook = () => {
       <ContactForm handleSubmit={handleSubmit} />
       <h2>Contacts</h2>
       <Filter filter={filter} handleChangeFilter={handleChangeFilter} />
-      <ContactList contacts={filteredContacts} handleDelete={handleDelete} />
+      <ContactList  handleDelete={handleDelete} />
     </div>
   );
 };
 
-Phonebook.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }).isRequired
-  ),
-  filter: PropTypes.string,
-};
-
 export default Phonebook;
-
-
