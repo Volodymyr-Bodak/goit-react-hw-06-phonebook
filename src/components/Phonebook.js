@@ -11,6 +11,7 @@ const Phonebook = () => {
   const filter = useSelector(state => state.phonebook.filter);
   const dispatch = useDispatch();
 
+
   const handleSubmit = newContact => {
     const contactExists = contacts.some(contact => contact.name.toLowerCase() === newContact.name.toLowerCase());
 
@@ -25,6 +26,7 @@ const Phonebook = () => {
   const handleChangeFilter = event => {
     dispatch(updateFilter(event.target.value));
   };
+
 
   const handleDelete = id => {
     dispatch(deleteContact(id));

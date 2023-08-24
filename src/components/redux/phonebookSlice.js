@@ -15,8 +15,8 @@ const phonebookSlice = createSlice({
       state.contacts = state.contacts.filter(contact => contact.id !== action.payload);
     },
     updateFilter: (state, action) => {
-      state.filter = action.payload;
-    },
+        state.filter = action.payload;
+      },
   },
 });
 
