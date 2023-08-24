@@ -1,9 +1,11 @@
-// store.js
-import { configureStore } from "@reduxjs/toolkit";
-import phonebookReducer from "./phonebookSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import persistedPhonebookReducer from './phonebookSlice';
+import { persistStore } from 'redux-persist';
 
 export const store = configureStore({
   reducer: {
-    phonebook: phonebookReducer,
+    phonebook: persistedPhonebookReducer,
   },
 });
+
+export const persistor = persistStore(store);
