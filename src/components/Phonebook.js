@@ -6,13 +6,11 @@ import ContactForm from './ContatForm/Contactform';
 import ContactList from './Contactlist';
 import Filter from './Filter';
 import { persistor } from './redux/store';
+
 const Phonebook = () => {
- 
-  const contacts = useSelector(state => state.contacts);
+  const contacts = useSelector(state => state.phonebook.contacts);
   const filter = useSelector(state => state.phonebook.filter);
-
   const dispatch = useDispatch();
-
 
   const handleSubmit = newContact => {
     const contactExists = contacts.some(contact => contact.name.toLowerCase() === newContact.name.toLowerCase());
@@ -27,19 +25,17 @@ const Phonebook = () => {
 
   const handleChangeFilter = event => {
     dispatch(updateFilter(event.target.value));
-    console.log(contacts)
   };
-
 
   const handleDelete = id => {
     dispatch(deleteContact(id));
   };
 
-  const filteredContacts = contacts?.filter((contact) =>
-  contact.name.toLowerCase().includes(filter.toLowerCase())
-);
+  const filteredContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
+     console.log('filtered', filteredContacts);
 
-  
   return (
     <PersistGate loading={null} persistor={persistor}>
       <div>

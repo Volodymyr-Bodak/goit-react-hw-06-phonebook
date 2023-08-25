@@ -1,16 +1,7 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { deleteContact } from './redux/phonebookSlice';
 import ContactListItem from './ContactListItem';
 
-const ContactList = () => {
-  const contacts = useSelector(state => state.phonebook.contacts);
-  const dispatch = useDispatch();
-
-  const handleDelete = id => {
-    dispatch(deleteContact(id));
-  };
-
+const ContactList = ({ contacts, handleDelete }) => {
   return (
     <ul>
       {contacts.map(contact => (

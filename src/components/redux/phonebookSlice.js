@@ -14,7 +14,7 @@ const phonebookSlice = createSlice({
     },
     deleteContact: (state, action) => {
       state.contacts = state.contacts.filter(contact => contact.id !== action.payload);
-    },
+    },    
     updateFilter: (state, action) => {
       state.filter = action.payload;
     },
@@ -29,11 +29,6 @@ const persistConfig = {
 const persistedPhonebookReducer = persistReducer(persistConfig, phonebookSlice.reducer);
 
 export const { addContact, deleteContact, updateFilter } = phonebookSlice.actions;
-export const selectFilteredContacts = state => {
-  const filter = state.phonebook.filter.toLowerCase();
-  return state.phonebook.contacts.filter(contact =>
-    contact.name.toLowerCase().includes(filter)
-  );
-};
+
 
 export default persistedPhonebookReducer;
