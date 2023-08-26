@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, deleteContact, updateFilter } from './redux/phonebookSlice';
+import { addContact, deleteContact, updateFilter } from 'redux/phonebookSlice';
 import { PersistGate } from 'redux-persist/integration/react'; 
 import ContactForm from './ContatForm/Contactform';
 import ContactList from './Contactlist';
 import Filter from './Filter';
-import { persistor } from './redux/store';
+import { persistor } from 'redux/store';
 
 const Phonebook = () => {
   const contacts = useSelector(state => state.phonebook.contacts);

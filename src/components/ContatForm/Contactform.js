@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact } from 'components/redux/phonebookSlice';
+import { addContact } from 'redux/phonebookSlice';
 import styles from 'components/ContatForm/ContactForm.module.css' 
 const ContactForm = () => {
   const [name, setName] = useState('');

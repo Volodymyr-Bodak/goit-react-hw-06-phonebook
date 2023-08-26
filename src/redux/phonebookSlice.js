@@ -24,6 +24,7 @@ const phonebookSlice = createSlice({
 const persistConfig = {
   key: 'root', 
   storage,
+  blacklist: ['filter']
 };
 
 const persistedPhonebookReducer = persistReducer(persistConfig, phonebookSlice.reducer);
