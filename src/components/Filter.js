@@ -1,19 +1,22 @@
+// Filter.js
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { updateFilter } from 'redux/phonebookSlice';
 
 const Filter = () => {
+  const filter = useSelector(state => state.phonebook.filter);
   const dispatch = useDispatch();
 
-  const handleChange = (e) => {
-    dispatch(updateFilter(e.target.value));
+  const handleChangeFilter = event => {
+    dispatch(updateFilter(event.target.value));
   };
 
   return (
     <input
       type="text"
-      placeholder="Filter Contacts"
-      onChange={handleChange}
+      value={filter}
+      onChange={handleChangeFilter}
+      placeholder="Search Contacts"
     />
   );
 };
